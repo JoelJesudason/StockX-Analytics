@@ -4,12 +4,12 @@ import requests
 import csv
 import pandas as pd
 import  numpy as np
-from StockXAnalyzer import StockXAnalyzer
+from StockXAnalyzer import StockXShoeContent
 
 def main():
 
-    shoe_analyzer = StockXAnalyzer()
-    shoeurl = input("Shoe URL: ")
+    shoe_analyzer = StockXShoeContent()
+    shoeurl = input("Shoe URL Ending: ")
 
     shoe_analyzer.get_chart_data(shoeurl, inplace=True)    
 

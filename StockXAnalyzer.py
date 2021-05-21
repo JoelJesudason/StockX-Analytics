@@ -6,23 +6,25 @@ import pandas as pd
 import  numpy as np
 import matplotlib.pyplot as plt
 
-class StockXAnalyzer:
+class StockXShoeContent:
 
     def __init__(self):
         self.shoeplot = None
+        self.shoeurl = None
+        self.soup = None
 
     def get_chart_data(self,shoeurl,inplace=False):
 
-        url = f'http://webcache.googleusercontent.com/search?q=cache:https://stockx.com/{shoeurl}'
-        print(url)
+        self.shoeurl = f'http://webcache.googleusercontent.com/search?q=cache:https://stockx.com/{shoeurl}'
+        print(self.shoeurl)
 
-        html_content = requests.get(url).text
+        html_content = requests.get(self.shoeurl).text
 
         # Parse the html content
-        soup = BeautifulSoup(html_content, "lxml")
+        self.soup = BeautifulSoup(html_content, "lxml")
 
         # zone in on table
-        chart_data = soup.find_all("path",attrs = {"class":"highcharts-graph"})
+        chart_data = self.soup.find_all("path",attrs = {"class":"highcharts-graph"})
 
         raw_xy_data = str(chart_data).split(' L ')[1:-1]
         xy_data = []
@@ -41,3 +43,10 @@ class StockXAnalyzer:
     def plot_shoeplot(self):
         figure = self.shoeplot
         plt.show()
+
+    def get_time_axis(self):
+
+        # zone in x axis
+        chart_data = self.soup.find_all("g",attrs = {"class":"highcharts-axis-labels highcharts-xaxis-labels"})
+
+        return chart_data
