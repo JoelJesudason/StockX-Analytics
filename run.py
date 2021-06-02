@@ -11,7 +11,7 @@ def main():
     shoe_analyzer = StockXShoeContent()
     shoeurl = input("Shoe URL Ending: ")
 
-    shoe_analyzer.get_chart_data(shoeurl, inplace=True)    
+    shoe_analyzer.acquire_shoe_data(shoeurl, inplace=True)    
 
     shoe_analyzer.plot_shoeplot()
 
